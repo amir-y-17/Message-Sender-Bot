@@ -1,5 +1,9 @@
+from config.settings import *
+import requests
+
+
 # Base class
-class MessageFormatter:
+class BaseMessageFormatter:
     def __init__(self, message):
         self.message = message
 
@@ -8,33 +12,45 @@ class MessageFormatter:
 
 
 # Formatter subclasses
-class TextMessageFormatter(MessageFormatter):
+class TextMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
-        data = {"text": self.message.text}
+        data = {
+            "type": "text",
+            "text": self.message.text,
+            "chat_id": EITAA_CHANNEL,
+            "pin": 0,
+        }
         return data
 
 
-class PhotoMessageFormatter(MessageFormatter):
+class PhotoMessageFormatter(BaseMessageFormatter):
+    def format(self) -> dict:
+
+        data = {
+            "type": "file",
+            "caption": self.message.caption,
+            "file_id": self.message.photo[-1].file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
+
+
+class VideoMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
         pass
 
 
-class VideoMessageFormatter(MessageFormatter):
+class AudioMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
         pass
 
 
-class AudioMessageFormatter(MessageFormatter):
+class VoiceMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
         pass
 
 
-class VoiceMessageFormatter(MessageFormatter):
-    def format(self) -> dict:
-        pass
-
-
-class DocumentMessageFormatter(MessageFormatter):
+class DocumentMessageFormatter(BaseMessageFormatter):
     def format(self):
         pass
 
