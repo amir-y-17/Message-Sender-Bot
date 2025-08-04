@@ -37,7 +37,13 @@ class PhotoMessageFormatter(BaseMessageFormatter):
 
 class VideoMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
-        pass
+        data = {
+            "type": "file",
+            "caption": self.message.caption,
+            "file_id": self.message.video.file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
 
 
 class AudioMessageFormatter(BaseMessageFormatter):

@@ -19,4 +19,13 @@ async def get_new_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         url = get_eitaa_api_url(method_name)
         forwarder = get_forwarder(message_type=formatted_data["type"], api_url=url)
 
-        forwarder.forward(formatted_data)
+        status, result = forwarder.forward(formatted_data)
+
+        if status == 200:
+            print(
+                f"[INFO] Message sent successfully from channel {message.chat_id} with status {status}"
+            )
+        else:
+            print(
+                f"[ERROR] Failed to send message from channel {message.chat_id}. Status: {status}, Response: {result}"
+            )
