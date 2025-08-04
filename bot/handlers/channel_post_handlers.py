@@ -9,7 +9,7 @@ from core.forward import get_forwarder
 async def get_new_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = update.channel_post
 
-    if message.chat_id in CHANNEL_IDS:
+    if message.chat_id == int(TELEGRAM_CHANNEL_ID):
         message_formatter = formatters.get_formatter(message)
         formatted_data = message_formatter.format()
 
