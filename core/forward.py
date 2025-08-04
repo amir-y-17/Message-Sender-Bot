@@ -21,7 +21,7 @@ class TextForwarder(BaseForwarder):
 
         result = response.json()
         if result.get("ok", False):
-            return result
+            return 200, result
         else:
             return None
 
