@@ -1,5 +1,9 @@
+from config.settings import *
+import requests
+
+
 # Base class
-class MessageFormatter:
+class BaseMessageFormatter:
     def __init__(self, message):
         self.message = message
 
@@ -8,35 +12,71 @@ class MessageFormatter:
 
 
 # Formatter subclasses
-class TextMessageFormatter(MessageFormatter):
+class TextMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
-        data = {"text": self.message.text}
+        data = {
+            "type": "text",
+            "text": self.message.text,
+            "chat_id": EITAA_CHANNEL,
+            "pin": 0,
+        }
         return data
 
 
-class PhotoMessageFormatter(MessageFormatter):
+class PhotoMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
-        pass
+
+        data = {
+            "type": "file",
+            "caption": self.message.caption,
+            "file_id": self.message.photo[-1].file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
 
 
-class VideoMessageFormatter(MessageFormatter):
+class VideoMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
-        pass
+        data = {
+            "type": "file",
+            "caption": self.message.caption,
+            "file_id": self.message.video.file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
 
 
-class AudioMessageFormatter(MessageFormatter):
+class AudioMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
-        pass
+        data = {
+            "type": "file",
+            "caption": self.message.caption,
+            "file_id": self.message.audio.file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
 
 
-class VoiceMessageFormatter(MessageFormatter):
+class VoiceMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
-        pass
+        data = {
+            "type": "file",
+            "caption": "",
+            "file_id": self.message.voice.file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
 
 
-class DocumentMessageFormatter(MessageFormatter):
-    def format(self):
-        pass
+class DocumentMessageFormatter(BaseMessageFormatter):
+    def format(self) -> dict:
+        data = {
+            "type": "file",
+            "caption": self.message.caption,
+            "file_id": self.message.document.file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
 
 
 # Factory function
