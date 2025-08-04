@@ -17,7 +17,7 @@ class TextMessageFormatter(BaseMessageFormatter):
         data = {
             "type": "text",
             "text": self.message.text,
-            "chat_id": EITAA_CHANNEL,
+            "chat_id": EITAA_CHANNEL_ID,
             "pin": 0,
         }
         return data
@@ -30,7 +30,7 @@ class PhotoMessageFormatter(BaseMessageFormatter):
             "type": "file",
             "caption": self.message.caption,
             "file_id": self.message.photo[-1].file_id,
-            "chat_id": EITAA_CHANNEL,
+            "chat_id": EITAA_CHANNEL_ID,
         }
         return data
 
@@ -41,7 +41,7 @@ class VideoMessageFormatter(BaseMessageFormatter):
             "type": "file",
             "caption": self.message.caption,
             "file_id": self.message.video.file_id,
-            "chat_id": EITAA_CHANNEL,
+            "chat_id": EITAA_CHANNEL_ID,
         }
         return data
 
@@ -52,7 +52,7 @@ class AudioMessageFormatter(BaseMessageFormatter):
             "type": "file",
             "caption": self.message.caption,
             "file_id": self.message.audio.file_id,
-            "chat_id": EITAA_CHANNEL,
+            "chat_id": EITAA_CHANNEL_ID,
         }
         return data
 
@@ -63,7 +63,7 @@ class VoiceMessageFormatter(BaseMessageFormatter):
             "type": "file",
             "caption": "",
             "file_id": self.message.voice.file_id,
-            "chat_id": EITAA_CHANNEL,
+            "chat_id": EITAA_CHANNEL_ID,
         }
         return data
 
@@ -74,7 +74,7 @@ class DocumentMessageFormatter(BaseMessageFormatter):
             "type": "file",
             "caption": self.message.caption,
             "file_id": self.message.document.file_id,
-            "chat_id": EITAA_CHANNEL,
+            "chat_id": EITAA_CHANNEL_ID,
         }
         return data
 
