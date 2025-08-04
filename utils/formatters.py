@@ -48,17 +48,35 @@ class VideoMessageFormatter(BaseMessageFormatter):
 
 class AudioMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
-        pass
+        data = {
+            "type": "file",
+            "caption": self.message.caption,
+            "file_id": self.message.audio.file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
 
 
 class VoiceMessageFormatter(BaseMessageFormatter):
     def format(self) -> dict:
-        pass
+        data = {
+            "type": "file",
+            "caption": "",
+            "file_id": self.message.voice.file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
 
 
 class DocumentMessageFormatter(BaseMessageFormatter):
-    def format(self):
-        pass
+    def format(self) -> dict:
+        data = {
+            "type": "file",
+            "caption": self.message.caption,
+            "file_id": self.message.document.file_id,
+            "chat_id": EITAA_CHANNEL,
+        }
+        return data
 
 
 # Factory function
